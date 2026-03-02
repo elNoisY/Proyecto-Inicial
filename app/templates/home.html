@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Publicaciones</h1>
+
+{% for post in posts %}
+    <h2><a href="/post/{{ post.id }}">{{ post.title }}</a></h2>
+    <p>{{ post.content[:150] }}...</p>
+{% endfor %}
+
+{% if current_user.is_admin %}
+    <a href="/create">Crear Post</a>
+{% endif %}
+
+{% endblock %}

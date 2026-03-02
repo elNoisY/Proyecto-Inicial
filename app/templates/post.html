@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>{{ post.title }}</h2>
+<p>{{ post.content }}</p>
+
+{% if post.image %}
+    <img src="{{ url_for('static', filename='uploads/' + post.image) }}" width="400">
+{% endif %}
+
+<hr>
+<h3>Comentarios</h3>
+
+{% for comment in post.comments %}
+    <p><strong>{{ comment.author.username }}</strong>:</p>
+    <p>{{ comment.content }}</p>
+    <hr>
+{% endfor %}
+
+{% if current_user.is_authenticated %}
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <p>{{ form.content() }}</p>
+    <p>{{ form.submit() }}</p>
+</form>
+{% else %}
+<p>Debes iniciar sesión para comentar.</p>
+{% endif %}
+
+{% endblock %}
